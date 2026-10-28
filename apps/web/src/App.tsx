@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Dashboard } from './Dashboard';
+import { DashboardProvider } from './state/DashboardProvider';
 import { fetchHealth, fetchMe, fetchUsers, selectUser, type Health, type User } from './api';
 
 type Me = Awaited<ReturnType<typeof fetchMe>>;
@@ -37,14 +39,11 @@ export function App() {
 
   return (
     <main>
-      <h1>Harness pilot</h1>
-      {failed && <p role="alert">The API is not reachable.</p>}
-      <section aria-label="Health">
-        <h2>API health</h2>
-        <p data-testid="health">{health ? `${health.status} (db: ${health.db})` : 'loading...'}</p>
-      </section>
-      <section aria-label="Current user">
-        <h2>Current user</h2>
+      <header className="topbar">
+        <h1>Harness pilot</h1>
+        <p data-testid="health" className="muted">
+          API: {health ? `${health.status} (db: ${health.db})` : 'loading...'}
+        </p>
         <p data-testid="me">
           {me ? ('id' in me ? `${me.name} (${me.id})` : `error: ${me.code}`) : 'loading...'}
         </p>
@@ -65,7 +64,11 @@ export function App() {
             ))}
           </select>
         </label>
-      </section>
+      </header>
+      {failed && <p role="alert">The API is not reachable.</p>}
+      <DashboardProvider epoch={reloads}>
+        <Dashboard />
+      </DashboardProvider>
     </main>
   );
 }

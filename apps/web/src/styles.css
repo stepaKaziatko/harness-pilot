@@ -1,0 +1,219 @@
+:root {
+  color-scheme: light;
+  --ink: #1b2430;
+  --muted: #5d6b7c;
+  --line: #d7dde5;
+  --surface: #ffffff;
+  --page: #f1f4f8;
+  --accent: #1f5fbf;
+  --up: #1a7f4b;
+  --down: #b3261e;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  color: var(--ink);
+  background: var(--page);
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  margin-bottom: 12px;
+}
+
+.topbar h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.topbar p {
+  margin: 0;
+}
+
+/* One column by default, in DOM order; the grid below applies on wide screens. */
+.dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.cell {
+  min-width: 0;
+}
+
+.block {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.block h2 {
+  font-size: 0.95rem;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+@media (min-width: 960px) {
+  .dashboard {
+    grid-template-columns: 1.3fr 1.2fr 1fr;
+    grid-template-areas:
+      'quotes chart balance'
+      'quotes chart actions'
+      'news watchlist operations';
+  }
+  .cell[data-area='quotes'] {
+    grid-area: quotes;
+  }
+  .cell[data-area='chart'] {
+    grid-area: chart;
+  }
+  .cell[data-area='balance'] {
+    grid-area: balance;
+  }
+  .cell[data-area='actions'] {
+    grid-area: actions;
+  }
+  .cell[data-area='news'] {
+    grid-area: news;
+  }
+  .cell[data-area='watchlist'] {
+    grid-area: watchlist;
+  }
+  .cell[data-area='operations'] {
+    grid-area: operations;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--line);
+  font-weight: normal;
+}
+
+thead th {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+tbody th {
+  font-weight: 600;
+}
+
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.error {
+  color: var(--down);
+}
+
+.up {
+  color: var(--up);
+}
+
+.down {
+  color: var(--down);
+}
+
+ul.plain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.plain li {
+  padding: 4px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.headline {
+  font-weight: 600;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button[aria-pressed='true'] {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+tr[data-selected='true'],
+li[data-selected='true'] {
+  background: #e8f0fc;
+}
+
+.summary {
+  display: flex;
+  gap: 24px;
+  margin: 0 0 8px;
+}
+
+.summary dt {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.summary dd {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart {
+  width: 100%;
+  height: auto;
+  color: var(--accent);
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.chart-title {
+  margin: 0 0 4px;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  font-size: 0.8rem;
+  margin: 4px 0 0;
+}

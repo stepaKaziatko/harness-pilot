@@ -1,12 +1,18 @@
 import { createApp } from './app.js';
 import { checkDb, createPool, pgUserStore } from './db/pool.js';
+import { pgMarketStore, pgPortfolioStore } from './db/stores.js';
 import { loadEnv, readConfig } from './env.js';
 import { createHttpServer } from './http.js';
 
 loadEnv();
 const config = readConfig();
 const pool = createPool(config.databaseUrl);
-const app = createApp({ checkDb: checkDb(pool), users: pgUserStore(pool) });
+const app = createApp({
+  checkDb: checkDb(pool),
+  users: pgUserStore(pool),
+  market: pgMarketStore(pool),
+  portfolio: pgPortfolioStore(pool),
+});
 const server = createHttpServer(app);
 
 server.listen(config.port, () => {
