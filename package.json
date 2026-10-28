@@ -1,0 +1,36 @@
+{
+  "name": "pilot-workspace",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter \"./apps/*\" dev",
+    "typecheck": "pnpm -r typecheck",
+    "build": "pnpm -r build",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "pnpm -r test && node --test scripts/local-verify.test.mjs",
+    "verify": "pnpm typecheck && pnpm build && pnpm lint && pnpm test",
+    "test:db": "pnpm db:up && pnpm db:migrate && pnpm db:seed && pnpm --filter @pilot/api test:db",
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down",
+    "db:migrate": "pnpm --filter @pilot/api db:migrate",
+    "db:seed": "pnpm --filter @pilot/api db:seed",
+    "db:reset": "docker compose down -v && pnpm db:up && pnpm db:migrate && pnpm db:seed",
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^20.19.43",
+    "eslint": "^10.13.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.13.0",
+    "lefthook": "^2.2.2",
+    "prettier": "^3.9.10",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1"
+  }
+}

@@ -1,0 +1,5 @@
+# The hook only reminds; it never blocks a push and never sets a status.
+pre-push:
+  commands:
+    local-verify-reminder:
+      run: echo "Reminder - attach the local/verify status to this commit with 'node scripts/local-verify.mjs'."
