@@ -5,7 +5,8 @@ import { seed } from '../db/seed.js';
 loadEnv();
 const pool = createPool(readConfig().databaseUrl);
 try {
-  console.log(`seeded ${await seed(pool)} users`);
+  const counts = await seed(pool);
+  console.log(`seeded ${JSON.stringify(counts)}`);
 } catch (err) {
   console.error((err as Error).message);
   process.exitCode = 1;
